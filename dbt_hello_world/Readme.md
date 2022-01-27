@@ -1,7 +1,7 @@
 # Welcome to your new dbt project!
 
-This is a basics configuration project, so you may feel spired and motivated to start with dbt today. This is also my start with dbt, and I hope it gives you the answers you are looking for.
-You will find comments throughout the project, in portuguese or english. It depends on my rush to understand the ideas. 
+This is a basic configuration project, so you may feel inspired and motivated to start with dbt today. This is also my start with dbt, and I hope it gives you the answers you are looking for.
+You will find comments throughout the project, in Portuguese or English. It depends on my rush to understand the ideas. 
 
 __
 
@@ -12,6 +12,7 @@ __
 * It's possible to make snapshots, so you can work with historical dimensions.
 * You can build transformations that will update with an incremental refresh.
 
+<img src="https://github.com/cathfoliveira/dbt_data_tool/blob/main/dbt_hello_world/dbt_workflow.png" alt="dbt_workflow.png">
 __
 
 ## Install your dbt
@@ -77,3 +78,7 @@ dbt docs generate
 -- creates a server to show the index.html 
 dbt serve
 ```
+
+## References
+- [getdbt Website](https://www.getdbt.com/).
+- [How Bootcamp & André Sionek](https://learn.howedu.com.br/curso/engenharia-de-dados)
