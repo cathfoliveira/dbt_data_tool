@@ -1,0 +1,44 @@
+
+# Name your project! Project names should contain only lowercase characters and underscores. 
+name: 'dbt_hello_world'
+version: '1.0.0'
+config-version: 2
+
+# Ele vai procurar o arquivo profile.yaml, vai em busca do conteúdo redshift lá dentro e em busca das credenciais do redshift
+profile: 'redshift'
+
+# These configurations specify where dbt should look for different types of files.
+# The `source-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+data-paths: ["data"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"  # directory which will store compiled SQL files
+clean-targets:         # directories to be removed by `dbt clean`
+    - "target"
+    - "dbt_modules"
+
+models:
+  bind: false           
+  staging:
+    schema: analytics_staging
+    materialized: ephemeral
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+# bind = False :: Sinaliza que é uma view comum adicionando o "with no schema biding" necessário para a criação de views 
+# externas ao schema do S3. Necessário ao criar uma view no Redshift Spectrum, lendo do S3, por exemplo.
+
+# schema: analytics_staging  :: nome do schema a ser criado no Redshift
+
+# materialized: ephemeral   ::  existem 4 tipos de materializacao 
+#     Table - dbt vai criar uma tabela dentro do redshift e vai persistir os dados dentro da tabela
+#     View - vai criar uma view
+#     Incremental - quando tiver tabelas grandes que vão recebendo updates ao longo do tempo, esta é a maneira de 
+#                   criar uma atualização incremental.
+#     Ephemeral - não cria nada no BD, vai criar como se fosse uma CTE, não ficará salvo em lugar nenhum no redshift ou BD

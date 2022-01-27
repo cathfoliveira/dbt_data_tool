@@ -1,0 +1,21 @@
+version: 2  
+            
+sources:
+    - name: data_lake_raw     # schema reconhecido em toda a solucao
+      schema: data_lake_raw2  # real nome do schema, que se mudar, nao precisarei mudar no sql que está referenciado pelo name.
+      loader: kinesis         # Posso colocar uma caracteristica como quem carregou os dados pra gente que pra este ex foi o kinesis
+
+      tables: 
+        - name: atomic_events       # nome da tabela a ser reconhecido em toda a solucao
+          identifier: atomic_events # nome da tabela no banco, e name é uma referencia para entendimento aqui
+          description: '{{ doc("source_atomic_events") }}'      # sintaxe do jinja, vai procurar um md com este nome dentro (doc.md)
+          columns:                  # posso documentar as colunas e efetuar testes, verificará se todos event_ids sao nao nulos
+            - name: event_id        # coloco as colunas e uma descricao para elas e posso definir testes
+              description: ID do evento
+              tests: 
+                - not_null         
+            - name: event_timestamp
+              description: Timestamp em que o evento ocorreu
+              tests:
+                - not_null          # antes do dbt rodar o modelo vai executar os testes, verificando, por exemplo, 
+                                    # se este campo possui todos os registros não nulos
